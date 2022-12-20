@@ -18,13 +18,9 @@ var sum_to_n_b = function(n) {
 };
 
 var sum_to_n_c = function(n) {
-    let sum = 0;
-
-    for(let i = 1; i <= n; i++) {
-        sum += i;
-    }
-
-    return sum;
+    return new Array(n)
+        .fill(1)
+        .reduce((sum, v, i) => sum += v + (v * i));
 };
 
 console.log(sum_to_n_a(5));
