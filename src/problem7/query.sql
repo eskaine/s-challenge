@@ -1,6 +1,5 @@
-
 SELECT balances.address FROM balances
-INNER JOIN (
+LEFT JOIN LATERAL (
     SELECT address, COUNT(address) AS total_trade FROM trades GROUP BY address
 ) 
 AS tradeCounts ON balances.address = tradeCounts.address
