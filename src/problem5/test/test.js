@@ -12,15 +12,19 @@ describe("UtilContract", () => {
         const tokenTwoAddress = '0x4b23e79dc7D04f9C5172CD0fbb885F5779aa985B';
         const utilContractAddress = '0x01C5f60689cD890AC140Be15E06db29b7749e656';
 
-        // Create env with populated PRIVATE_KEY
-        const wallet = new ethers.Wallet(process.env.PRIVATE_KEY).connect(provider);
+        // update with your data
+        const tokenOneAmount = 2000;
+        const tokenTwoAmount = 123;
+        const privateKey = process.env.PRIVATE_KEY || 'your_private_key';
+
+        const wallet = new ethers.Wallet(privateKey).connect(provider);
         const tokenOne = new ethers.Contract(tokenOneAddress, tokenOneArtifact.abi, wallet);
         const tokenTwo = new ethers.Contract(tokenTwoAddress, tokenTwoArtifact.abi, wallet);
         const utilContract = new ethers.Contract(utilContractAddress, utilContractArtifact.abi, wallet);
 
-        const tokenOneTx = await tokenOne.setBalance(wallet.address, 2000);
+        const tokenOneTx = await tokenOne.setBalance(wallet.address, tokenOneAmount);
         await tokenOneTx.wait();
-        const tokenTwoTx = await tokenTwo.setBalance(wallet.address, 123);
+        const tokenTwoTx = await tokenTwo.setBalance(wallet.address, tokenTwoAmount);
         await tokenTwoTx.wait();
 
         const tokens = [
